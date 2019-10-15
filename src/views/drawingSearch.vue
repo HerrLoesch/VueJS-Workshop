@@ -1,7 +1,9 @@
 <template>
   <v-container id="drawingSearch">
     <v-row>
-      <span class="title pa-2">{{visibleDrawings.length > 0 ? visibleDrawings.length : ""}} Ziehungen</span>
+      <span
+        class="title pa-2"
+      >{{visibleDrawings.length > 0 ? visibleDrawings.length : ""}} Ziehungen</span>
       <v-spacer></v-spacer>
       <v-text-field v-model="searchText" append-icon="mdi-magnify"></v-text-field>
     </v-row>
@@ -24,13 +26,20 @@ export default {
   components: {
     drawing
   },
-  methods: {
-    visibleDrawings() {
-      return this.drawings.filter(x => x.date.includes(this.searchText));
+  watch: {
+    searchText(newValue, oldValue) {
+      if (newValue === "" || this.searchText === null) {
+        this.visibleDrawings = this.drawings;
+      } else {
+        this.visibleDrawings = this.drawings.filter(x =>
+          x.date.includes(this.searchText)
+        );
+      }
     }
   },
   data() {
-    return {        
+    return {
+      visibleDrawings: [],
       searchText: "",
       drawings: [
         {
