@@ -37,27 +37,35 @@ export default {
       }
     }
   },
-  created(){
-    this.drawings = [
-        {
-          date: "2019-05-03",
-          extraNumbers: [3, 5],
-          Id: 70,
-          numbers: [9, 5, 12, 29, 4]
-        },
-        {
-          date: "2019-05-10",
-          extraNumbers: [8, 3],
-          Id: 71,
-          numbers: [29, 15, 7, 19, 5]
-        },
-        {
-          date: "2019-06-17",
-          extraNumbers: [1, 2],
-          Id: 72,
-          numbers: [30, 21, 17, 15, 4]
-        }
-      ]
+  methods: {
+    convertToDrawing(backendDrawing) {
+      var newDrawing = {};
+      newDrawing.date = backendDrawing.Datum.split("T")[0];
+      newDrawing.id = backendDrawing.Id;
+      newDrawing.numbers = [];
+      newDrawing.numbers.push(backendDrawing.z1);
+      newDrawing.numbers.push(backendDrawing.z2);
+      newDrawing.numbers.push(backendDrawing.z3);
+      newDrawing.numbers.push(backendDrawing.z4);
+      newDrawing.numbers.push(backendDrawing.z5);
+
+      newDrawing.extraNumbers = [];
+      newDrawing.extraNumbers.push(backendDrawing.ez1);
+      newDrawing.extraNumbers.push(backendDrawing.ez2);
+
+      return newDrawing;
+    },
+    async loadData() {
+      const response = await fetch(
+        "http://eurolottodrawing.azurewebsites.net/api/drawings"
+      );
+      const backendDrawings = await response.json();
+
+      this.drawings = backendDrawings.map(this.convertToDrawing);
+    }
+  },
+  created() {
+    this.loadData();
   },
   data() {
     return {
