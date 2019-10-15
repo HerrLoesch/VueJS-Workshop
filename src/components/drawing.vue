@@ -1,30 +1,30 @@
 <template>
   <div id="drawing">
-      <div>{{drawing.Datum}}</div>
+    <div>{{value.date}}</div>
+    <div>
+      <span v-for="(item, index) in value.numbers" :key="index">{{item}} </span>
+    </div>
+    <div>
+      <span v-for="(item, index) in value.extraNumbers" :key="index">{{item}} </span>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: "drawing",
-    data() {
-      return {
-        drawing: {
-          "Datum": "2019-05-10T00:00:00",
-          "ez1": 8,
-          "ez2": 3,
-          "Id": 71,
-          "z1": 29,
-          "z2": 15,
-          "z3": 7,
-          "z4": 19,
-          "z5": 5
+  name: "drawing",
+  data() {
+    return {
+      value: {
+        date: "2019-05-10",
+        extraNumbers: [8, 3],
+        Id: 71,
+        numbers: [29, 15, 7, 19, 5]
       }
-      }
-    },
-}
+    };
+  }
+};
 </script>
 
 <style>
-
 </style>
