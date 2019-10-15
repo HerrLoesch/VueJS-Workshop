@@ -2,6 +2,11 @@
   <v-container id="drawingSearch">
     <v-row>
         <span class="title pa-2">{{drawings.length > 0 ? drawings.length : ""}} Ziehungen</span>
+        <v-spacer></v-spacer>
+        <v-text-field></v-text-field>
+        <v-btn v-on:click="search" icon>
+            <v-icon>mdi-magnify</v-icon>
+        </v-btn>
     </v-row>
     <v-row>
       <v-col v-for="(item, index) in drawings" :key="index">
@@ -21,6 +26,11 @@ export default {
   name: "drawingSearch",
   components: {
     drawing
+  },
+  methods: {
+      search() {
+          this.drawings = []
+      }
   },
   data() {
     return {
