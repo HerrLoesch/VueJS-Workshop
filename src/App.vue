@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     Hallo Welt
-  </div>
+  </v-app>
 </template>
 
 <style>
