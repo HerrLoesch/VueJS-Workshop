@@ -24,7 +24,7 @@ export default {
   },
   async mounted() {
     var id = this.$route.params.id
-    this.drawing = await drawingService.getDrawingById(id)
+    this.drawing = this.$store.getters.getDrawingById(id)
   },
   methods: {
     goBack() {
