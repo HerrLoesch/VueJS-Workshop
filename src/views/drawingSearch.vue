@@ -7,7 +7,10 @@
       <v-spacer></v-spacer>
       <v-text-field v-model="searchText" append-icon="mdi-magnify"></v-text-field>
     </v-row>
-    <v-row>
+    <v-row v-if="isLoading">
+      <v-progress-linear indeterminate ></v-progress-linear>
+    </v-row>
+    <v-row v-else>
       <transition name="fade" v-for="(item, index) in visibleDrawings" :key="index">
         <v-col xs="6" sm="6" md="4" lg="2">
           <v-card :to="{name: 'details', params:{id: item.id}}">
@@ -36,20 +39,20 @@ export default {
       } else {
         return this.drawings.filter(x => x.date.includes(this.searchText));
       }
-    }
-  },
-  methods: {    
-    async loadData() {
-      this.drawings = await drawingService.getDrawings()
+    },
+    drawings() {
+      return this.$store.state.drawings
+    },
+    isLoading() {
+      return this.$store.state.isLoading
     }
   },
   created() {
-    this.loadData();
+    this.$store.dispatch("initialize")
   },
   data() {
     return {
-      searchText: "",
-      drawings: []
+      searchText: ""
     };
   }
 };
