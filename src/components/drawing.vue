@@ -1,11 +1,11 @@
 <template>
   <div id="drawing">
-    <div>{{value.date}}</div>
+    <div class="title">{{value.date}}</div>
     <div>
-      <span v-for="(item, index) in value.numbers" :key="index">{{item}}</span>
+      <v-chip small v-for="(item, index) in value.numbers" :key="index">{{item}}</v-chip>
     </div>
     <div>
-      <span v-for="(item, index) in value.extraNumbers" :key="index">{{item}}</span>
+      <v-chip color="primary" v-for="(item, index) in value.extraNumbers" :key="index">{{item}}</v-chip>
     </div>
   </div>
 </template>
