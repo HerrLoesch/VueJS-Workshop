@@ -23,6 +23,7 @@
 
 <script>
 import drawing from "@/components/drawing";
+import drawingService from "@/services/drawingService"
 export default {
   name: "drawingSearch",
   components: {
@@ -37,31 +38,9 @@ export default {
       }
     }
   },
-  methods: {
-    convertToDrawing(backendDrawing) {
-      var newDrawing = {};
-      newDrawing.date = backendDrawing.Datum.split("T")[0];
-      newDrawing.id = backendDrawing.Id;
-      newDrawing.numbers = [];
-      newDrawing.numbers.push(backendDrawing.z1);
-      newDrawing.numbers.push(backendDrawing.z2);
-      newDrawing.numbers.push(backendDrawing.z3);
-      newDrawing.numbers.push(backendDrawing.z4);
-      newDrawing.numbers.push(backendDrawing.z5);
-
-      newDrawing.extraNumbers = [];
-      newDrawing.extraNumbers.push(backendDrawing.ez1);
-      newDrawing.extraNumbers.push(backendDrawing.ez2);
-
-      return newDrawing;
-    },
+  methods: {    
     async loadData() {
-      const response = await fetch(
-        "http://eurolottodrawing.azurewebsites.net/api/drawings"
-      );
-      const backendDrawings = await response.json();
-
-      this.drawings = backendDrawings.map(this.convertToDrawing);
+      this.drawings = await drawingService.getDrawings()
     }
   },
   created() {
