@@ -1,9 +1,15 @@
 <template>
   <v-app id="app">
-    Hallo Welt
+    <drawing></drawing>
   </v-app>
 </template>
 
-<style>
+<script>
+import drawing from "@/components/drawing"
 
-</style>
+export default {
+  components: {
+    drawing
+  }
+}
+</script>
