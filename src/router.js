@@ -13,7 +13,15 @@ export default new Router({
     }, {
       name: "details",
       path: "/details/:id",
-      component: drawingDeatils
+      component: drawingDeatils,
+      beforeEnter: (to, from, next) => {
+        if(to.params.id === null){
+          alert("no id was given")
+        }
+        else {
+          next()
+        }
+      }
     },
     {
       path: "*",
