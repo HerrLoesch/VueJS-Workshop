@@ -13,16 +13,7 @@
 <script>
 export default {
   name: "drawing",
-  data() {
-    return {
-      value: {
-        date: "2019-05-10",
-        extraNumbers: [8, 3],
-        Id: 71,
-        numbers: [29, 15, 7, 19, 5]
-      }
-    };
-  }
+  props: ["value"]
 };
 </script>
 
