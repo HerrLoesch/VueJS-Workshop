@@ -8,13 +8,15 @@
       <v-text-field v-model="searchText" append-icon="mdi-magnify"></v-text-field>
     </v-row>
     <v-row>
-      <v-col v-for="(item, index) in visibleDrawings" :key="index">
-        <v-card xs="6" sm="6" md="4" lg="2">
-          <v-card-text>
-            <drawing :value="item"></drawing>
-          </v-card-text>
-        </v-card>
-      </v-col>
+      <transition name="fade" v-for="(item, index) in visibleDrawings" :key="index">
+        <v-col xs="6" sm="6" md="4" lg="2">
+          <v-card>
+            <v-card-text>
+              <drawing :value="item"></drawing>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </transition>
     </v-row>
   </v-container>
 </template>
@@ -31,8 +33,7 @@ export default {
       if (this.searchText === "" || this.searchText === null) {
         return this.drawings;
       } else {
-        return this.drawings.filter(x => x.date.includes(this.searchText)
-        );
+        return this.drawings.filter(x => x.date.includes(this.searchText));
       }
     }
   },
@@ -63,3 +64,14 @@ export default {
   }
 };
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
