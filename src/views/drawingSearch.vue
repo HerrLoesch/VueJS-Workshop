@@ -1,10 +1,14 @@
 <template>
   <v-container id="drawingSearch">
-    <v-card v-for="(item, index) in drawings" :key="index">
-      <v-card-text>
-        <drawing :value="item"></drawing>
-      </v-card-text>
-    </v-card>
+    <v-row>
+      <v-col v-for="(item, index) in drawings" :key="index">
+        <v-card xs="6" sm="6" md="4" lg="2">
+          <v-card-text>
+            <drawing :value="item"></drawing>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
