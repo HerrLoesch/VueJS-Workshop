@@ -10,7 +10,7 @@
     <v-row>
       <transition name="fade" v-for="(item, index) in visibleDrawings" :key="index">
         <v-col xs="6" sm="6" md="4" lg="2">
-          <v-card>
+          <v-card :to="{name: 'details', params:{id: item.id}}">
             <v-card-text>
               <drawing :value="item"></drawing>
             </v-card-text>
