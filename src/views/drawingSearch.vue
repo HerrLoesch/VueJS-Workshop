@@ -37,10 +37,8 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      searchText: "",
-      drawings: [
+  created(){
+    this.drawings = [
         {
           date: "2019-05-03",
           extraNumbers: [3, 5],
@@ -60,6 +58,11 @@ export default {
           numbers: [30, 21, 17, 15, 4]
         }
       ]
+  },
+  data() {
+    return {
+      searchText: "",
+      drawings: []
     };
   }
 };
