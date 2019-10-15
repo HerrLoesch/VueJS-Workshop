@@ -1,15 +1,15 @@
 <template>
   <v-container id="drawingSearch">
     <v-row>
-        <span class="title pa-2">{{drawings.length > 0 ? drawings.length : ""}} Ziehungen</span>
-        <v-spacer></v-spacer>
-        <v-text-field></v-text-field>
-        <v-btn v-on:click="search" icon>
-            <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+      <span class="title pa-2">{{visibleDrawings.length > 0 ? visibleDrawings.length : ""}} Ziehungen</span>
+      <v-spacer></v-spacer>
+      <v-text-field v-model="searchText"></v-text-field>
+      <v-btn v-on:click="search" icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
     </v-row>
     <v-row>
-      <v-col v-for="(item, index) in drawings" :key="index">
+      <v-col v-for="(item, index) in visibleDrawings" :key="index">
         <v-card xs="6" sm="6" md="4" lg="2">
           <v-card-text>
             <drawing :value="item"></drawing>
@@ -28,12 +28,14 @@ export default {
     drawing
   },
   methods: {
-      search() {
-          this.drawings = []
-      }
+    search() {
+      this.visibleDrawings = this.drawings.filter(x => x.date.includes(this.searchText));
+    }
   },
   data() {
-    return {
+    return {        
+      searchText: "",
+      visibleDrawings: [],
       drawings: [
         {
           date: "2019-05-03",
