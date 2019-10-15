@@ -19,10 +19,7 @@ export default {
       required: true,
       default: () => ({
         date: "Ziehungsinformationen können nicht angezeigt werden"
-      }),
-      validator: function(givenDrawing) {
-        return givenDrawing.date !== undefined && givenDrawing.date !== null;
-      }
+      })
     }
   }
 };

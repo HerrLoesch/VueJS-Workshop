@@ -24,5 +24,11 @@ export default {
         var backendDrawings = await response.json();
 
         return backendDrawings.map(convertToDrawing)
+    },
+    async getDrawingById(id) {
+        var response = await fetch(baseUrl+ "?id=" + id)
+        var backendDrawing = await response.json();
+
+        return convertToDrawing(backendDrawing)
     }
 }

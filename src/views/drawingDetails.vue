@@ -15,16 +15,21 @@
 
 <script>
 import drawing from "@/components/drawing";
+import drawingService from "@/services/drawingService"
+
 export default {
   name: "drawingDetails",
   components: {
     drawing
   },
-  mounted() {
-
+  async mounted() {
+    var id = this.$route.params.id
+    this.drawing = await drawingService.getDrawingById(id)
   },
   methods: {
-    goBack() {}
+    goBack() {
+      this.$router.go(-1)
+    }
   },
   data() {
     return {
