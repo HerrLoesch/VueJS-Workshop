@@ -3,10 +3,7 @@
     <v-row>
       <span class="title pa-2">{{visibleDrawings.length > 0 ? visibleDrawings.length : ""}} Ziehungen</span>
       <v-spacer></v-spacer>
-      <v-text-field v-on:keyup.enter="search" v-model="searchText"></v-text-field>
-      <v-btn v-on:click="search" icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      <v-text-field v-model="searchText" append-icon="mdi-magnify"></v-text-field>
     </v-row>
     <v-row>
       <v-col v-for="(item, index) in visibleDrawings" :key="index">
@@ -28,14 +25,13 @@ export default {
     drawing
   },
   methods: {
-    search() {
-      this.visibleDrawings = this.drawings.filter(x => x.date.includes(this.searchText));
+    visibleDrawings() {
+      return this.drawings.filter(x => x.date.includes(this.searchText));
     }
   },
   data() {
     return {        
       searchText: "",
-      visibleDrawings: [],
       drawings: [
         {
           date: "2019-05-03",
