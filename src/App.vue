@@ -1,15 +1,6 @@
 <template>
   <v-app id="app">
-    <drawingSearch></drawingSearch>
+    <router-view></router-view>
   </v-app>
 </template>
 
-<script>
-import drawingSearch from "@/views/drawingSearch";
-
-export default {
-  components: {
-    drawingSearch
-  }
-};
-</script>
