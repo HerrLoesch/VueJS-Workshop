@@ -26,20 +26,18 @@ export default {
   components: {
     drawing
   },
-  watch: {
-    searchText(newValue, oldValue) {
-      if (newValue === "" || this.searchText === null) {
-        this.visibleDrawings = this.drawings;
+  computed: {
+    visibleDrawings() {
+      if (this.searchText === "" || this.searchText === null) {
+        return this.drawings;
       } else {
-        this.visibleDrawings = this.drawings.filter(x =>
-          x.date.includes(this.searchText)
+        return this.drawings.filter(x => x.date.includes(this.searchText)
         );
       }
     }
   },
   data() {
     return {
-      visibleDrawings: [],
       searchText: "",
       drawings: [
         {
