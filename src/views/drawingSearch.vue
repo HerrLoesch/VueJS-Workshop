@@ -1,6 +1,9 @@
 <template>
   <v-container id="drawingSearch">
     <v-row>
+        <span class="title pa-2">{{drawings.length > 0 ? drawings.length : ""}} Ziehungen</span>
+    </v-row>
+    <v-row>
       <v-col v-for="(item, index) in drawings" :key="index">
         <v-card xs="6" sm="6" md="4" lg="2">
           <v-card-text>
