@@ -3,7 +3,7 @@
     <v-row>
       <span class="title pa-2">{{visibleDrawings.length > 0 ? visibleDrawings.length : ""}} Ziehungen</span>
       <v-spacer></v-spacer>
-      <v-text-field v-model="searchText"></v-text-field>
+      <v-text-field v-on:keyup.enter="search" v-model="searchText"></v-text-field>
       <v-btn v-on:click="search" icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
