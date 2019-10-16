@@ -1,9 +1,14 @@
 <template>
-  <div id="app">
-    Hallo Welt
-  </div>
+  <v-app id="app">
+    <drawingSearch></drawingSearch>
+  </v-app>
 </template>
 
-<style>
-
-</style>
+<script>
+import drawingSearch from "@/views/drawingSearch"
+export default {
+  components: {
+drawingSearch
+  }
+}
+</script>
