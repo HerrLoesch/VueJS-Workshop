@@ -1,27 +1,28 @@
 <template>
   <v-container id="drawingSearch">
     <v-row>
-        <v-text-field v-on:keyup.enter="search" v-model="searchText" label="search"></v-text-field>
-        <v-btn icon v-on:click="search">
-            <v-icon>
-                mdi-magnify
-            </v-icon>
-        </v-btn>
+      <v-text-field v-model="searchText" label="search"></v-text-field>
     </v-row>
-    <v-row>
-      <v-col md="4" sm="6" lg="2" v-for="(item, index) in visibleDrawings" :key="index">
-        <v-card >
-          <v-card-text>
-            <drawing :value="item"></drawing>
-          </v-card-text>
-        </v-card>
-      </v-col>
+    <v-row v-if="isLoading">
+        <v-progress-linear indeterminate></v-progress-linear>
+    </v-row>
+    <v-row v-else>
+      <transition name="fade" v-for="(item, index) in visibleDrawings" :key="index">
+        <v-col md="4" sm="6" lg="2">
+          <v-card>
+            <v-card-text>
+              <drawing :value="item"></drawing>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </transition>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import drawing from "@/components/drawing";
+import drawingService from "@/services/drawingService"
 
 export default {
   name: "drawingSearch",
@@ -29,35 +30,63 @@ export default {
     drawing
   },
   methods: {
-      search() {
-          this.visibleDrawings = this.drawings.filter(x => x.date.includes(this.searchText))
-      }
+    convertToDrawing(backendDrawing) {
+      var newDrawing = {};
+      newDrawing.date = backendDrawing.Datum.split("T")[0];
+      newDrawing.id = backendDrawing.Id;
+      newDrawing.numbers = [];
+      newDrawing.numbers.push(backendDrawing.z1);
+      newDrawing.numbers.push(backendDrawing.z2);
+      newDrawing.numbers.push(backendDrawing.z3);
+      newDrawing.numbers.push(backendDrawing.z4);
+      newDrawing.numbers.push(backendDrawing.z5);
+
+      newDrawing.extraNumbers = [];
+      newDrawing.extraNumbers.push(backendDrawing.ez1);
+      newDrawing.extraNumbers.push(backendDrawing.ez2);
+
+      return newDrawing;
+    },
+    async getDrawings() {
+      this.isLoading = true
+
+      this.drawings = await drawingService.getDrawings()
+
+      this.isLoading = false
+    }
+  },
+  created() {
+    this.getDrawings();
+  },
+  computed: {
+    visibleDrawings() {
+      return this.drawings.filter(x => x.date.includes(this.searchText));
+    }
   },
   data() {
     return {
-        visibleDrawings: [],
-        searchText: "",
-      drawings: [
-        {
-          date: "2019-05-03",
-          extraNumbers: [3, 5],
-          Id: 70,
-          numbers: [9, 5, 12, 29, 4]
-        },
-        {
-          date: "2019-05-10",
-          extraNumbers: [8, 3],
-          Id: 71,
-          numbers: [29, 15, 7, 19, 5]
-        },
-        {
-          date: "2019-06-17",
-          extraNumbers: [1, 2],
-          Id: 72,
-          numbers: [30, 21, 17, 15, 4]
-        }
-      ]
+      isLoading: false,
+      searchText: "",
+      drawings: []
     };
   }
 };
 </script>
+
+<style scoped>
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 1s;
+}
+
+.fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
