@@ -1,23 +1,42 @@
 <template>
   <v-container id="drawingSearch">
-      <v-card v-for="(item, index) in drawings" :key="index">
+    <v-row>
+        <v-text-field v-on:keyup.enter="search" v-model="searchText" label="search"></v-text-field>
+        <v-btn icon v-on:click="search">
+            <v-icon>
+                mdi-magnify
+            </v-icon>
+        </v-btn>
+    </v-row>
+    <v-row>
+      <v-col md="4" sm="6" lg="2" v-for="(item, index) in visibleDrawings" :key="index">
+        <v-card >
           <v-card-text>
             <drawing :value="item"></drawing>
           </v-card-text>
-      </v-card>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-import drawing from '@/components/drawing'
+import drawing from "@/components/drawing";
 
 export default {
   name: "drawingSearch",
   components: {
-      drawing
+    drawing
+  },
+  methods: {
+      search() {
+          this.visibleDrawings = this.drawings.filter(x => x.date.includes(this.searchText))
+      }
   },
   data() {
     return {
+        visibleDrawings: [],
+        searchText: "",
       drawings: [
         {
           date: "2019-05-03",
