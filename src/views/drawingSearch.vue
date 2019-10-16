@@ -23,6 +23,7 @@
 <script>
 import drawing from "@/components/drawing";
 import drawingService from "@/services/drawingService"
+import {mapState} from "vuex"
 
 export default {
   name: "drawingSearch",
@@ -33,12 +34,7 @@ export default {
     visibleDrawings() {
       return this.drawings.filter(x => x.date.includes(this.searchText));
     },
-    drawings() {
-      return this.$store.state.drawings
-    },
-    isLoading() {
-      return this.$store.state.isLoading
-    }
+    ...mapState(["isLoading", "drawings"]) 
   },
   data() {
     return {
