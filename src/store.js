@@ -9,6 +9,12 @@ export default new Vuex.Store({
     drawings: [],
     isLoading: false
   },
+  getters: {
+    getDrawingById: (state) => (id) => {
+      var drawing = state.drawings.find(x => x.id === id)
+      return JSON.parse(JSON.stringify(drawing))
+    }
+  },
   mutations: {
     setDrawings(state, drawings) {
       state.drawings = drawings
