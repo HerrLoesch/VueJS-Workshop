@@ -29,45 +29,20 @@ export default {
   components: {
     drawing
   },
-  methods: {
-    convertToDrawing(backendDrawing) {
-      var newDrawing = {};
-      newDrawing.date = backendDrawing.Datum.split("T")[0];
-      newDrawing.id = backendDrawing.Id;
-      newDrawing.numbers = [];
-      newDrawing.numbers.push(backendDrawing.z1);
-      newDrawing.numbers.push(backendDrawing.z2);
-      newDrawing.numbers.push(backendDrawing.z3);
-      newDrawing.numbers.push(backendDrawing.z4);
-      newDrawing.numbers.push(backendDrawing.z5);
-
-      newDrawing.extraNumbers = [];
-      newDrawing.extraNumbers.push(backendDrawing.ez1);
-      newDrawing.extraNumbers.push(backendDrawing.ez2);
-
-      return newDrawing;
-    },
-    async getDrawings() {
-      this.isLoading = true
-
-      this.drawings = await drawingService.getDrawings()
-
-      this.isLoading = false
-    }
-  },
-  created() {
-    this.getDrawings();
-  },
   computed: {
     visibleDrawings() {
       return this.drawings.filter(x => x.date.includes(this.searchText));
+    },
+    drawings() {
+      return this.$store.state.drawings
+    },
+    isLoading() {
+      return this.$store.state.isLoading
     }
   },
   data() {
     return {
-      isLoading: false,
-      searchText: "",
-      drawings: []
+      searchText: ""
     };
   }
 };

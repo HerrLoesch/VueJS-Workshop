@@ -8,7 +8,10 @@
 import drawingSearch from "@/views/drawingSearch"
 export default {
   components: {
-drawingSearch
+    drawingSearch
+  },
+  created() {
+    this.$store.dispatch("initialize")
   }
 }
 </script>
